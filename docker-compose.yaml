@@ -1,9 +1,9 @@
-version: "3.3"
+# version: "3.3"
 
 services:
 
    site:
-      image: tekton/website
+      image: tekton-website
       build:
          context: .
       ports: 
@@ -19,4 +19,4 @@ services:
          - /src/content/en/vault/
          - /src/node_modules/
          - /src/sync/.cache/
-         - .:/src/
+         # - .:/src/
