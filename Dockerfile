@@ -11,24 +11,6 @@ RUN apk add --update --no-cache \
     curl \
     wget
 
-# Install Hugo extended manually (supports both ARM64 and AMD64)
-# RUN ARCH=$(uname -m) && \
-#     if [ "$ARCH" = "x86_64" ]; then \
-#         HUGO_ARCH="amd64"; \
-#     elif [ "$ARCH" = "aarch64" ]; then \
-#         HUGO_ARCH="arm64"; \
-#     else \
-#         echo "Unsupported architecture: $ARCH" && exit 1; \
-#     fi && \
-#     HUGO_VERSION="0.118.2" && \
-#     wget -O hugo.tar.gz "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-${HUGO_ARCH}.tar.gz" && \
-#     tar -xzf hugo.tar.gz && \
-#     mv hugo /usr/local/bin/ && \
-#     rm hugo.tar.gz
-
-# RUN chmod +x /usr/local/bin/hugo
-# ENV PATH="/usr/local/bin:${PATH}"
-
 WORKDIR /app
 
 # Copy package files and install Node.js dependencies
@@ -72,8 +54,7 @@ RUN apt-get update && \
 
 WORKDIR /src
 
-# Copy Hugo binary from builder
-# COPY --from=hugoapp /usr/local/bin/hugo /usr/local/bin/hugo
+# Copy Hugo binary from hugoapp
 COPY --from=hugoapp /app /src/
 
 # Copy everything from builder stage
